@@ -1,0 +1,1158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dementia Caregiving: Insights & Support</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --cream: #f8f5f2;
+            --rust: #b34a30;
+            --charcoal: #2c2c2c;
+            --steel: #8aa1b1;
+            --light-gray: #e0e0e0;
+            --border: #d0c6bf;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Open Sans', sans-serif;
+            background-color: var(--cream);
+            color: var(--charcoal);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        /* Homepage Styles */
+        .homepage {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+            background: linear-gradient(rgba(248, 245, 242, 0.9), rgba(248, 245, 242, 0.9)), url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect width="100" height="100" fill="%23f8f5f2"/><path d="M20,20 Q40,5 60,20 T100,20 M20,50 Q40,35 60,50 T100,50 M20,80 Q40,65 60,80 T100,80" stroke="%23b34a30" stroke-width="0.5" fill="none"/></svg>');
+            background-size: 200px;
+            text-align: center;
+            position: relative;
+        }
+        
+        .home-content {
+            max-width: 700px;
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.85);
+            border-radius: 8px;
+            box-shadow: 0 5px 25px rgba(0,0,0,0.05);
+        }
+        
+        .home-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.8rem;
+            color: var(--charcoal);
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+            position: relative;
+        }
+        
+        .home-title::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 3px;
+            background: var(--rust);
+            margin: 1rem auto;
+        }
+        
+        .home-subtitle {
+            font-size: 1.3rem;
+            font-weight: 300;
+            margin-bottom: 2rem;
+            color: #555;
+        }
+        
+        .enter-btn {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            background-color: var(--rust);
+            color: white;
+            text-decoration: none;
+            font-size: 1.1rem;
+            border-radius: 30px;
+            transition: all 0.3s ease;
+            border: 2px solid var(--rust);
+            margin-top: 1rem;
+            letter-spacing: 0.5px;
+            font-weight: 600;
+        }
+        
+        .enter-btn:hover {
+            background-color: transparent;
+            color: var(--rust);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(179, 74, 48, 0.2);
+        }
+        
+        .symbolic-image {
+            width: 180px;
+            height: 240px;
+            margin: 0 auto 2rem;
+            position: relative;
+            perspective: 1000px;
+        }
+        
+        .book-cover {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--rust) 0%, #8a2e1d 100%);
+            border-radius: 4px 12px 12px 4px;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+            position: relative;
+            transform: rotateY(-5deg);
+            transition: transform 0.5s ease;
+        }
+        
+        .symbolic-image:hover .book-cover {
+            transform: rotateY(-15deg);
+        }
+        
+        .book-cover::before {
+            content: '';
+            position: absolute;
+            top: 10%;
+            left: 10%;
+            width: 80%;
+            height: 80%;
+            border: 2px solid rgba(255,255,255,0.2);
+            border-radius: 2px;
+        }
+        
+        .book-title {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            text-align: center;
+            width: 100%;
+            padding: 0 1rem;
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            line-height: 1.4;
+        }
+        
+        /* Chapters Landing Page */
+        .chapters-container {
+            display: none;
+            padding: 4rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .chapters-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        .chapters-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--charcoal);
+        }
+        
+        .chapters-subtitle {
+            font-size: 1.2rem;
+            color: #666;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .chapters-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .chapter-card {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .chapter-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+        
+        .card-header {
+            background: var(--rust);
+            color: white;
+            padding: 1.5rem;
+        }
+        
+        .prelude .card-header {
+            background: var(--steel);
+        }
+        
+        .card-number {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.5rem;
+            opacity: 0.9;
+        }
+        
+        .card-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.6rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .card-subtitle {
+            font-size: 1rem;
+            font-weight: 300;
+        }
+        
+        .card-content {
+            padding: 1.5rem;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .card-excerpt {
+            font-size: 1rem;
+            color: #555;
+            margin-bottom: 1.5rem;
+            line-height: 1.7;
+            flex-grow: 1;
+        }
+        
+        .read-btn {
+            display: inline-block;
+            padding: 0.7rem 1.5rem;
+            background: transparent;
+            color: var(--rust);
+            border: 2px solid var(--rust);
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            align-self: flex-start;
+            margin-top: auto;
+        }
+        
+        .prelude .read-btn {
+            color: var(--steel);
+            border-color: var(--steel);
+        }
+        
+        .read-btn:hover {
+            background: var(--rust);
+            color: white;
+        }
+        
+        .prelude .read-btn:hover {
+            background: var(--steel);
+            color: white;
+        }
+        
+        /* Chapter Page Structure */
+        .chapter-page {
+            display: none;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+        
+        .chapter-header {
+            margin-bottom: 2.5rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid var(--light-gray);
+        }
+        
+        .chapter-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2rem;
+            color: var(--charcoal);
+            margin-bottom: 0.5rem;
+        }
+        
+        .chapter-subtitle {
+            font-size: 1.2rem;
+            color: #666;
+            font-weight: 300;
+        }
+        
+        .narrative-content {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 3rem;
+        }
+        
+        .narrative-content p {
+            margin-bottom: 1.5rem;
+        }
+        
+        .tools-section {
+            background: rgba(138, 161, 177, 0.05);
+            border-radius: 8px;
+            padding: 2rem;
+            margin-top: 3rem;
+            border-top: 3px solid var(--rust);
+        }
+        
+        .tools-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            color: var(--charcoal);
+        }
+        
+        .tools-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+            margin-top: 1rem;
+        }
+        
+        .tool-card {
+            background: white;
+            padding: 1.8rem;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            border: 1px solid var(--border);
+        }
+        
+        .tool-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--light-gray);
+        }
+        
+        .tool-icon {
+            font-size: 2rem;
+            margin-right: 1rem;
+            color: var(--rust);
+        }
+        
+        .tool-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--charcoal);
+        }
+        
+        .tool-content {
+            color: #555;
+            font-size: 1.05rem;
+            line-height: 1.7;
+        }
+        
+        .tool-content p {
+            margin-bottom: 1rem;
+        }
+        
+        .tool-content ul {
+            padding-left: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .tool-content li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.8rem 1.5rem;
+            background: transparent;
+            color: var(--charcoal);
+            border: 1px solid var(--light-gray);
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            margin-bottom: 2rem;
+        }
+        
+        .back-btn:hover {
+            background: var(--charcoal);
+            color: white;
+            border-color: var(--charcoal);
+        }
+        
+        .back-btn::before {
+            content: '←';
+            margin-right: 0.5rem;
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .home-title {
+                font-size: 2.2rem;
+            }
+            
+            .home-subtitle {
+                font-size: 1.1rem;
+            }
+            
+            .symbolic-image {
+                width: 140px;
+                height: 190px;
+            }
+            
+            .chapters-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .chapter-title {
+                font-size: 1.8rem;
+            }
+            
+            .tool-card {
+                padding: 1.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Homepage -->
+    <section class="homepage" id="homepage">
+        <div class="symbolic-image">
+            <div class="book-cover">
+                <div class="book-title">Dementia Caregiving: Insights & Support</div>
+            </div>
+        </div>
+        <div class="home-content">
+            <h1 class="home-title">Dementia Caregiving: Unseen Realities, Practical Support</h1>
+            <p class="home-subtitle">A raw exploration of the caregiver journey through dementia, blending personal narrative with evidence-based support strategies for those navigating this complex path.</p>
+            <a href="#" class="enter-btn" id="enter-btn">Enter the Experience</a>
+        </div>
+    </section>
+
+    <!-- Chapters Landing Page -->
+    <section class="chapters-container" id="chapters-container">
+        <div class="back-btn" id="back-to-home">Back to Home</div>
+        
+        <div class="chapters-header">
+            <h2 class="chapters-title">The Caregiver Journey</h2>
+            <p class="chapters-subtitle">Navigate through the chapters to explore personal narratives, research insights, and practical tools for dementia caregivers.</p>
+        </div>
+        
+        <div class="chapters-grid">
+            <!-- Prelude Card -->
+            <div class="chapter-card prelude">
+                <div class="card-header">
+                    <div class="card-number">Prelude</div>
+                    <h3 class="card-title">R³ Model</h3>
+                    <div class="card-subtitle">Reflection • Resistance • Revelation</div>
+                </div>
+                <div class="card-content">
+                    <p class="card-excerpt">The conceptual framework that shapes my understanding of the caregiving journey. Not steps, but forces that live alongside each other—a pulse rather than a path.</p>
+                    <a href="#" class="read-btn" data-chapter="prelude">Read Prelude</a>
+                </div>
+            </div>
+            
+            <!-- Chapter 1 Card -->
+            <div class="chapter-card">
+                <div class="card-header">
+                    <div class="card-number">Chapter 1</div>
+                    <h3 class="card-title">The Call to Return</h3>
+                    <div class="card-subtitle">Sacrifice • Loyalty • Surrender</div>
+                </div>
+                <div class="card-content">
+                    <p class="card-excerpt">A temporary act of love that became something much bigger. The moment you learn she needs you, and the tension between a short visit and an unspoken knowing.</p>
+                    <a href="#" class="read-btn" data-chapter="chapter1">Read Chapter</a>
+                </div>
+            </div>
+            
+            <!-- Chapter 2 Card -->
+            <div class="chapter-card">
+                <div class="card-header">
+                    <div class="card-number">Chapter 2</div>
+                    <h3 class="card-title">Caretaking or Caregiving?</h3>
+                    <div class="card-subtitle">Erasure • Anger • Identity</div>
+                </div>
+                <div class="card-content">
+                    <p class="card-excerpt">The slow disappearance of self inside the role. What you thought this would be versus what it became—the difference between tasks and presence.</p>
+                    <a href="#" class="read-btn" data-chapter="chapter2">Read Chapter</a>
+                </div>
+            </div>
+            
+            <!-- Chapter 3 Card -->
+            <div class="chapter-card">
+                <div class="card-header">
+                    <div class="card-number">Chapter 3</div>
+                    <h3 class="card-title">What They Don't Tell You About Coming Home</h3>
+                    <div class="card-subtitle">Displacement • Regression • Grief</div>
+                </div>
+                <div class="card-content">
+                    <p class="card-excerpt">Re-entry isn't romantic—it's disorienting. Returning to childhood spaces and confronting old ghosts in every corner.</p>
+                    <a href="#" class="read-btn" data-chapter="chapter3">Read Chapter</a>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Chapter Page Template -->
+    <section class="chapter-page" id="chapter-page">
+        <a href="#" class="back-btn" id="back-to-chapters">Back to Chapters</a>
+        
+        <div class="chapter-header">
+            <h2 class="chapter-title" id="chapter-page-title">Chapter Title</h2>
+            <p class="chapter-subtitle" id="chapter-page-subtitle">Chapter subtitle and theme</p>
+        </div>
+        
+        <div class="narrative-content" id="narrative-content">
+            <!-- Chapter content will be loaded here -->
+        </div>
+        
+        <div class="tools-section">
+            <h3 class="tools-title">Chapter Resources</h3>
+            <div class="tools-grid" id="resources-container">
+                <!-- Resources will be loaded here -->
+            </div>
+        </div>
+    </section>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get DOM elements
+            const homepage = document.getElementById('homepage');
+            const chaptersContainer = document.getElementById('chapters-container');
+            const chapterPage = document.getElementById('chapter-page');
+            const enterBtn = document.getElementById('enter-btn');
+            const backToHome = document.getElementById('back-to-home');
+            const backToChapters = document.getElementById('back-to-chapters');
+            const readBtns = document.querySelectorAll('.read-btn');
+            const chapterTitle = document.getElementById('chapter-page-title');
+            const chapterSubtitle = document.getElementById('chapter-page-subtitle');
+            const narrativeContent = document.getElementById('narrative-content');
+            const resourcesContainer = document.getElementById('resources-container');
+            
+            // Chapter content
+            const chapters = {
+                prelude: {
+                    title: "R³ Model",
+                    subtitle: "Reflection • Resistance • Revelation",
+                    narrative: `
+                        <p>I've been told I'm resilient.<br>
+                        Strong. Clear. Capable.</p>
+                        
+                        <p>But strength isn't always a choice—it's often what's left when every other option's been exhausted.</p>
+                        
+                        <p>My story isn't a single thread. It's layered—braided with contradictions, pivots, pressure. I've been a leader in spaces that didn't see me, a caregiver in moments that emptied me, and a voice for others even when I was still finding my own.</p>
+                        
+                        <p>I've navigated systems that weren't built for me. I've endured labels that never fit me. I've carried grief, invisibility, and expectation in silence—and then, when silence stopped serving me, I learned to speak through it.</p>
+                        
+                        <p class="short-paragraph">But here's something most people don't know:<br>
+                        There are parts of my story I can't remember.<br>
+                        Not because they didn't shape me—because my brain learned not to keep them.</p>
+                        
+                        <p class="short-paragraph">That's what trauma does. It doesn't just bruise—it rewires.<br>
+                        It teaches you to survive by forgetting.<br>
+                        By filing things away in dark corners. By calling fog a blessing.</p>
+                        
+                        <p>While others anchor themselves in childhood stories or trace clear lines through their college years, I navigate through fragments. There are stretches of time I can't retrieve. Whole seasons I only know happened because someone else said they did.</p>
+                        
+                        <p class="short-paragraph">At first, I called that coping.<br>
+                        Then I called it protection.<br>
+                        But eventually, I had to ask—what happens when the very thing that kept me safe becomes the reason I can't move forward?</p>
+                        
+                        <p class="short-paragraph">Because when memory fades—not by accident, but by design—reflection becomes a different kind of labor.<br>
+                        It's not just uncomfortable. It's unclear.<br>
+                        You're trying to grow from something you can barely name.</p>
+                        
+                        <p class="short-paragraph">And yet, I kept feeling echoes.<br>
+                        Patterns in my relationships. Recurring outcomes.<br>
+                        Situations that kept putting me last—until I started to ask, Why does this feel familiar?<br>
+                        And the hardest part? Realizing the common denominator wasn't just the environment.<br>
+                        It was me—still putting myself second. Still leading with care for everyone but myself.</p>
+                        
+                        <p class="short-paragraph">Growth didn't arrive as an epiphany.<br>
+                        It came in fragments.<br>
+                        Moments where I had to stop and ask, "Why does this hurt?"<br>
+                        Moments where I could feel something in me shift, but couldn't yet name it.<br>
+                        Moments where I realized I was coaching myself—without even knowing it.</p>
+                        
+                        <p class="short-paragraph">This wasn't a workbook.<br>
+                        There were no steps.<br>
+                        But patterns began to rise.<br>
+                        Not patterns of behavior—patterns of being.</p>
+                        
+                        <p>Over time, I noticed I was moving through three forces. Not always in order. Not always with grace. But always, with depth:</p>
+                        
+                        <p style="margin-left: 30px;">• I'd pause, searching for what was surfacing in me.<br>
+                        • I'd meet resistance—not just from the world, but from the stories I'd inherited about who I was.<br>
+                        • And then, a shift. A knowing. A new truth I could carry.</p>
+                        
+                        <p>That's what I now call the R³ Model™.</p>
+                        
+                        <p class="short-paragraph">It's not academic.<br>
+                        It's lived.<br>
+                        And it became the foundation for how I began healing, leading, and helping others grow—not from perfection, but from presence.</p>
+                    `,
+                    resources: [
+                        {
+                            icon: "💭",
+                            title: "Reflection Prompts",
+                            content: `
+                                <p>These prompts are invitations, not tasks. Start where you feel pulled:</p>
+                                
+                                <h4>Reflection</h4>
+                                <ul>
+                                    <li>Where in your life are you feeling stuck, not because you're doing something wrong—but because something deeper is asking to be seen?</li>
+                                    <li>What do you feel, but haven't yet fully faced?</li>
+                                </ul>
+                                
+                                <h4>Resistance</h4>
+                                <ul>
+                                    <li>What patterns, projections, or expectations are trying to pull you away from your growth?</li>
+                                    <li>What truth about yourself are you learning to stand in—even if others can't yet see it?</li>
+                                </ul>
+                                
+                                <h4>Revelation</h4>
+                                <ul>
+                                    <li>What clarity has emerged that now feels portable—something you can carry across situations?</li>
+                                    <li>Where are you beginning to live differently because of what you now understand?</li>
+                                </ul>
+                            `
+                        },
+                        {
+                            icon: "📊",
+                            title: "Data Insights",
+                            content: `
+                                <p>Understanding the emotional landscape of caregiving through research:</p>
+                                
+                                <ul>
+                                    <li><strong>11.5M+</strong> family and other caregivers in the US</li>
+                                    <li><strong>59%</strong> report high emotional stress</li>
+                                    <li><strong>36%</strong> lifetime risk of dementia for those 55+</li>
+                                    <li><strong>70%</strong> of caregivers report stress specifically from coordinating care</li>
+                                </ul>
+                                
+                                <p>These statistics highlight the immense scale of caregiving and the significant emotional toll it takes. Understanding these numbers is the first step towards building better support systems.</p>
+                                
+                                <p><em>Source: Alzheimer's Association, 2024 Alzheimer's Disease Facts and Figures report.</em></p>
+                            `
+                        },
+                        {
+                            icon: "🛠️",
+                            title: "Chapter Activities",
+                            content: `
+                                <p>Practical exercises to apply the R³ Model:</p>
+                                
+                                <h4>Reflection Practice</h4>
+                                <p>Set aside 15 minutes to journal about a recent situation where you felt stuck. Use the reflection prompts as starting points.</p>
+                                
+                                <h4>Resistance Awareness</h4>
+                                <p>For one day, note each time you feel resistance. What form does it take? Physical tension? Mental arguments? Emotional withdrawal?</p>
+                                
+                                <h4>Revelation Recognition</h4>
+                                <p>Identify one insight from the past month that has changed how you approach challenges. How can you apply this more intentionally?</p>
+                                
+                                <h4>Closing Reflection</h4>
+                                <p>You don't need a map to be growing. But sometimes it helps to have a mirror. This model is that mirror—not to judge, but to reflect, reveal, and remind you: You're already in motion, and you're not moving backwards.</p>
+                            `
+                        }
+                    ]
+                },
+                chapter1: {
+                    title: "The Call to Return",
+                    subtitle: "Sacrifice • Loyalty • Surrender",
+                    narrative: `
+                        <p>I never imagined my life here, in this role, in this house, inside this past that I spent years trying to outgrow.... Each day looks the same. Stay up until midnight for her medication. Wake up at seven to steal a moment for myself before she calls. Cook, clean, listen, endure.</p>
+                        
+                        <p>Explain the same things over and over again—who's at the door, what day it is, why she needs to check her blood sugar.</p>
+                        
+                        <p>Wash the sheets, change the portable toilet, clear the hoarded mess of memories she refuses to part with. The smell of antiseptic clings to my hands, mixing with the mildew of this house, a scent that triggers memories I'd rather forget.</p>
+                        
+                        <p>Drive to appointments that take hours just to get out of the house, because even getting dressed is an uphill battle.</p>
+                        
+                        <p>Brace myself for the words that come, sharp as knives—</p>
+                        
+                        <p>"You're so irritating."</p>
+                        
+                        <p>"You ain't never been good at nothing."</p>
+                        
+                        <p>"Shut up!"....</p>
+                        
+                        <p>She doesn't understand.</p>
+                        
+                        <p>Doesn't understand that I am here because no one else would be.</p>
+                        
+                        <p>Doesn't understand that I lay on this couch at night, staring at the ceiling, wondering when I will get my life back—or if I even will.</p>
+                        
+                        <p>And maybe that's what hurts the most. Not just the words, but the knowing—that my life is on pause while hers plays out to its inevitable end. I was supposed to be building something. Launching a business. Crafting a future after years of giving myself away to jobs, to people, to expectations. But instead, I am here, living inside someone else's past, trapped inside someone else's regrets....</p>
+                        
+                        <p>Most people don't see it.</p>
+                        
+                        <p>They hear her laugh, watch her change the subject, accept her anger as attitude—not disorientation.</p>
+                        
+                        <p>They think she's just aging. Her voice still sharp, her mask still in place, her pride untouched.</p>
+                        
+                        <p>But I've learned the difference between aging and unraveling.</p>
+                        
+                        <p>Dementia doesn't always surface as forgetfulness. It starts with concealing—rehearsed phrases, redirected questions, sudden silence.</p>
+                        
+                        <p>I track her changes.</p>
+                        
+                        <p>The confusion masked as confidence.</p>
+                        
+                        <p>The deflection, the cover stories, the places where memory folds and rewrites itself.</p>
+                        
+                        <p>This is what it means to lose a person in pieces.</p>
+                        
+                        <p>And while her words still land hard, I know now: she's not just lashing out. She's fighting to stay whole. I am reminding myself of a promise: When this is over, I will not stay in the fire. When this is over, I will choose myself. For now, I wait. For now, I take it one day at a time.</p>
+                        
+                        <h3>Caregiving in Context</h3>
+                        
+                        <p>More than 11 million U.S. adults provide care for someone with a form of dementia. Many, like me, did not expect to become caregivers this early in life. Nearly 60% of dementia caregivers report high levels of emotional stress. The daily repetition. The unpredictability. The anger that feels personal, even when you know it's not.</p>
+                        
+                        <p>I've learned that this work is invisible until it breaks something if you let it: Your health. Your patience. Your plans.</p>
+                        
+                        <p>Demographically, approximately two-thirds of dementia caregivers are women, and about 30% are 65 or older, highlighting specific support needs within these groups. A significant stressor for 70% of caregivers is the coordination of care, including navigating costs, securing appointments, and finding appropriate doctors.</p>
+                    `,
+                    resources: [
+                        {
+                            icon: "💭",
+                            title: "Reflection Prompts",
+                            content: `
+                                <p>Take 10 minutes to respond honestly, with no pressure to be profound:</p>
+                                
+                                <ul>
+                                    <li>"If I had said no, then what? What part of me did I protect by saying yes?"</li>
+                                    <li>"Do I believe I was chosen? Or was I just the last one left?"</li>
+                                </ul>
+                                
+                                <h4>Additional Questions for Reflection</h4>
+                                <ul>
+                                    <li>When was the last time you tasted something familiar and told yourself it was fine—only to realize later that it was the beginning of something you couldn't un-swallow?</li>
+                                    <li>What does "home" mean for you? Is it a place, a person, a memory—or a mask you've outgrown?</li>
+                                </ul>
+                            `
+                        },
+                        {
+                            icon: "📊",
+                            title: "Data Insights",
+                            content: `
+                                <h4>Caregiving in Context</h4>
+                                
+                                <p>When family members become caregivers without preparation or shared responsibility, the emotional and logistical burden can quickly become suffocating. Black women, in particular, are three times more likely to develop dementia and disproportionately serve as unpaid caregivers—often without formal diagnosis or system-level support.</p>
+                                
+                                <p><strong>Did you know?</strong> Nearly 60% of family caregivers report sacrificing job opportunities or delaying personal goals to take on care duties (AARP, 2023). And most—like you—never planned for it. They just became it.</p>
+                                
+                                <p>This chapter introduces a sobering reality: even when the decision feels spiritual or "meant to be," the systems we step into were not built to support us. You're not wrong for feeling unprepared. You're not alone in the cost.</p>
+                                
+                                <h4>Key Statistics</h4>
+                                <ul>
+                                    <li>11.5M+ Family & Other Caregivers</li>
+                                    <li>59% Report High Emotional Stress</li>
+                                    <li>36% Lifetime Risk of Dementia (55+)</li>
+                                    <li>6.7M Americans Living with Alzheimer's (65+)</li>
+                                </ul>
+                            `
+                        },
+                        {
+                            icon: "🛠️",
+                            title: "Chapter Activities",
+                            content: `
+                                <h4>Three Grounding Strategies for Sudden Role Shifts</h4>
+                                
+                                <ul>
+                                    <li><strong>Name What You Gave Up</strong><br>
+                                    Write down the professional, personal, or emotional sacrifices you made to return. Naming them doesn't negate the choice—it honors it.<br>
+                                    <em>Try: "I released ___ when I returned. It mattered to me because ___."</em></li>
+                                    
+                                    <li><strong>Anchor One Thing That Is Yours</strong><br>
+                                    Choose a daily ritual—no matter how small—that is just for you (e.g., stretching, journaling with music, lighting a candle). Returning doesn't mean disappearing.</li>
+                                    
+                                    <li><strong>Declare a Support Boundary Early</strong><br>
+                                    Identify one person you'll update weekly (a friend, therapist, pastor) who will hold space without judgment.<br>
+                                    <em>Try: "My story deserves to be witnessed. I will let ___ check in on me weekly."</em></li>
+                                </ul>
+                                
+                                <h4>Recycled Project: "The Weight I Carried"</h4>
+                                <p><strong>Project Type:</strong> Found Object Collage</p>
+                                <p><strong>Goal:</strong> Create a visual representation of what you carried into this caregiving role—both literally and symbolically.</p>
+                                
+                                <p><strong>Materials Needed (all can be recycled or symbolic):</strong></p>
+                                <ul>
+                                    <li>Old tote bag or cardboard cutout shaped like a bag</li>
+                                    <li>Scraps of paper, used envelopes, old receipts</li>
+                                    <li>Strings, rubber bands, broken jewelry, buttons</li>
+                                    <li>Markers or pens</li>
+                                </ul>
+                                
+                                <p><strong>Instructions:</strong></p>
+                                <ol>
+                                    <li>Use the bag or cardboard as a base.</li>
+                                    <li>On each paper scrap, write something you gave up or are holding (a job, identity, routine, dream).</li>
+                                    <li>Attach those items using glue or string. Let them hang or tangle.</li>
+                                    <li>Place it somewhere visible for the week. Add to it as more weight reveals itself.</li>
+                                </ol>
+                                
+                                <p><em>Optional Ritual:</em> At the end of Season One, some participants may choose to burn, bury, or transform this project. But for now—just witness it.</p>
+                            `
+                        }
+                    ]
+                },
+                chapter2: {
+                    title: "Caretaking or Caregiving?",
+                    subtitle: "Erasure • Anger • Identity",
+                    narrative: `
+                        <p>One keeps the body alive. The other keeps you awake at night.</p>
+                        
+                        <p>There's a difference between caretaking and caregiving. But no one tells you that. Not when you're stepping in. Not when you're the only one answering the phone. Not when you're the default daughter, granddaughter, woman-who-knows-how-to-hold-it-together.</p>
+                        
+                        <p>Caretaking is what they see. You refill the pill organizer. You drive her to appointments. You make her meals—whether she thanks you or not. You do the thing that needs doing, check it off, and move to the next.</p>
+                        
+                        <p>Caregiving? Caregiving is what no one sees. It's the loop of remembering what she forgot—and remembering it for both of you. It's waking up at 3 a.m. in case she wanders. It's standing in the bathroom doorway asking yourself if it's okay to cry. It's being both nurse and target. Advocate and sponge. Ghost and anchor.</p>
+                        
+                        <p>I didn't realize I had become a caregiver until the anger started to live in my body.</p>
+                        
+                        <p>I wasn't just exhausted. I was hollowed. Everything I did was for someone else. And yet, I couldn't tell you the last time I felt seen inside the doing.</p>
+                        
+                        <p>People would say things like:</p>
+                        
+                        <p>"You're such a blessing to her."</p>
+                        <p>"I don't know how you do it."</p>
+                        <p>"She's lucky to have you."</p>
+                        
+                        <p>And I'd nod, because what else do you do with that? But inside, I was screaming:</p>
+                        
+                        <p>"I didn't choose this."</p>
+                        <p>"This isn't luck—it's erasure."</p>
+                        <p>"She doesn't even think I'm doing it right."</p>
+                        
+                        <p>There were days I didn't feel like a person anymore.</p>
+                        
+                        <p>I was a list. A set of reminders. An insurance interpreter. A body that moved things from one place to another.</p>
+                        
+                        <p>And the irony was: I had trained staff. I had managed crisis teams. I had led organizations. But in that house, none of it mattered.</p>
+                        
+                        <p>My degrees couldn't protect me from being told I "wasn't doing enough." My leadership experience couldn't soften her critique of how I folded towels. Nothing I had accomplished outside those walls followed me inside.</p>
+                        
+                        <p>There's a grief in becoming invisible. Especially when the person making you invisible is someone you're trying to save.</p>
+                        
+                        <p>But that's what caregiving is: The slow evaporation of your name until all that's left is what they need.</p>
+                        
+                        <p>And if you're not careful, you start believing that's all you are.</p>
+                        
+                        <p>I look back now and realize I spent a long time trying to fix what couldn't be fixed. Trying to organize my way through grief. Trying to logic my way through disease. Trying to show up so well that maybe she'd finally say:</p>
+                        
+                        <p>"Thank you. I'm proud of you. I see you."</p>
+                        
+                        <p>But that moment never came. Not in the way I wanted. Not in the language I needed.</p>
+                        
+                        <p>Still, I kept showing up. Because underneath the tasks, somewhere between the resentment and the hollowing, I knew this was about more than her. It was about choosing—again and again—not to disappear.</p>
+                    `,
+                    resources: [
+                        {
+                            icon: "💭",
+                            title: "Reflection Prompts",
+                            content: `
+                                <p>You don't need eloquence—you need honesty. Take 10 minutes with one or both of the following:</p>
+                                
+                                <ul>
+                                    <li>"Where in my life have I done everything right—and still felt unseen?"</li>
+                                    <li>"What would it take for me to name my care, even if no one else ever does?"</li>
+                                </ul>
+                                
+                                <p><em>Optional:</em> Try writing your response in the form of a letter to yourself.</p>
+                                
+                                <h4>Additional Prompts</h4>
+                                <ul>
+                                    <li>What labels from last week's project still feel heavy?</li>
+                                    <li>What is starting to surface about the version of yourself that got lost?</li>
+                                </ul>
+                            `
+                        },
+                        {
+                            icon: "📊",
+                            title: "Data Insights",
+                            content: `
+                                <h4>Caregiving in Context: The Cost of Disappearing</h4>
+                                
+                                <p>Invisibility is one of the most painful parts of caregiving—especially for women of color, who are often praised for their "strength" while being denied their humanity. According to the Family Caregiver Alliance and AARP, nearly 70% of caregivers report feeling undervalued and emotionally unseen.</p>
+                                
+                                <p>Many report this pain not from strangers—but from the very people they're caring for.</p>
+                                
+                                <p>For Black women in particular, cultural expectations of "holding it together" often silence emotional pain. What may appear to outsiders as calm competence is often quiet devastation.</p>
+                                
+                                <p><strong>Key insight:</strong> Praise is not the same as being seen. And being needed is not the same as being loved.</p>
+                                
+                                <h4>Emotional Toll Statistics</h4>
+                                <ul>
+                                    <li>70% of caregivers feel unseen or unacknowledged by family members</li>
+                                    <li>83% report increased anxiety since becoming caregivers</li>
+                                    <li>67% experience symptoms of depression</li>
+                                    <li>45% report their health has declined since caregiving began</li>
+                                </ul>
+                            `
+                        },
+                        {
+                            icon: "🛠️",
+                            title: "Chapter Activities",
+                            content: `
+                                <h4>Three Ways to Reclaim Identity Inside the Role</h4>
+                                
+                                <ul>
+                                    <li><strong>Reintroduce Yourself (to Yourself)</strong><br>
+                                    Make a list of roles that define you outside of caregiving—past, present, or imagined.<br>
+                                    <em>Try: "I am also a ___, even if no one here sees that."</em></li>
+                                    
+                                    <li><strong>Separate Praise from Proof</strong><br>
+                                    Write down any compliments you've received like "You're a blessing" or "I don't know how you do it." Next to each, write what it doesn't acknowledge.<br>
+                                    <em>Try: "'She's lucky to have you' doesn't mean she sees me."</em></li>
+                                    
+                                    <li><strong>Ritual of Return</strong><br>
+                                    Choose a small, embodied ritual to re-anchor your identity at the end of each caregiving day. Examples: wash your face intentionally, say your full name out loud, sit in stillness with your hands over your chest.<br>
+                                    <em>Try: "I am returning to myself now."</em></li>
+                                </ul>
+                                
+                                <h4>Recycled Project: "The Bottle They Couldn't See Me In"</h4>
+                                <p><strong>Project Type:</strong> Symbolic Containment Sculpture</p>
+                                <p><strong>Goal:</strong> Capture the experience of being seen as useful—but not seen as you.</p>
+                                
+                                <p><strong>Materials Needed (All can be repurposed or symbolic):</strong></p>
+                                <ul>
+                                    <li>Empty plastic bottle or jar (representing how others contain your role)</li>
+                                    <li>Masking tape or old paper (to cover or label)</li>
+                                    <li>Scraps, receipts, broken pencils, reminders—objects tied to the things you do</li>
+                                    <li>Markers, thread, ribbon</li>
+                                    <li>Optional: mirror scrap or printed photo of yourself</li>
+                                </ul>
+                                
+                                <p><strong>Instructions:</strong></p>
+                                <ol>
+                                    <li>Take the bottle or jar and begin covering it—labeling the outside with things others associate with you (e.g., "caretaker," "nurse," "cook," "scheduler").</li>
+                                    <li>Inside the bottle, place objects or words that reflect who you actually are—parts they don't see.</li>
+                                    <li>Tie it shut with string.</li>
+                                    <li>Set it next to your Chapter 1 bag as a visual reminder: This is not all I am.</li>
+                                </ol>
+                                
+                                <p><em>Optional ritual:</em> In Season Two, you will be invited to open the bottle and repurpose it—when you're ready to be seen again.</p>
+                            `
+                        }
+                    ]
+                },
+                chapter3: {
+                    title: "What They Don't Tell You About Coming Home",
+                    subtitle: "Displacement • Regression • Grief",
+                    narrative: `
+                        <p>It's not just the rooms that have memories. It's the air. The silence. The things that never got said.</p>
+                        
+                        <p>They say home is where the heart is. But what they don't tell you is that sometimes, home is where the fracture lives. Where your silence learned to behave. Where the mask was born.</p>
+                        
+                        <p>Coming home isn't always comforting. Sometimes, it's destabilizing. It's like stepping into a photo that once held you—but now you're misaligned, too large for the frame, too aware of what was cropped out.</p>
+                        
+                        <p>The house hadn't changed much. Same furniture. Same hallway scent. Even the carpet creaked in the same places, like the past reminding me where I'd stepped before.</p>
+                        
+                        <p>But I had changed. And the more I stood still, the more I noticed what hadn't.</p>
+                        
+                        <p>There were things I didn't question as a child that now felt… loud.</p>
+                        
+                        <p>The way voices echoed down the hallway. The sharpness of her words when she didn't think I was moving fast enough. The smile she wore when someone called. The silence that followed when the line disconnected.</p>
+                        
+                        <p>Returning wasn't a reunion. It was a collision. Of roles. Of timelines. Of truths I had rewritten to make myself functional.</p>
+                        
+                        <p>There's a violence in being expected to become the child again in a house where you became the adult too early. A kind of spiritual shrinking that happens when people look at you and still see the version they were comfortable with—not the woman who had returned.</p>
+                        
+                        <p>I kept trying to hold it together.</p>
+                        
+                        <p>I had a suitcase and a laptop and plans to work remotely for a while. I told myself this was temporary. That I'd be back in my own space soon. But the house whispered otherwise. It pulled me in. Quietly. Slowly. Without asking.</p>
+                        
+                        <p>The walls didn't care about my degrees. The couch didn't ask about my job title. The kitchen didn't applaud the fact that I had kept an entire campus running through a pandemic.</p>
+                        
+                        <p>Here, I was just her. Whatever version of me she decided I was that day.</p>
+                        
+                        <p>People say coming home helps you remember who you are. But for me, it showed me everything I had to unlearn.</p>
+                        
+                        <p>I saw the way I held my breath when I passed certain doors. I heard the pitch of my voice shift depending on her mood. I noticed how small I sat, how fast I moved, how deeply I braced myself for correction.</p>
+                        
+                        <p>And worst of all—I didn't even notice I was doing it at first. That's what returning to old ground does. It doesn't just remind you who you were—it dares you to become that again.</p>
+                        
+                        <p>But I couldn't. Not fully.</p>
+                        
+                        <p>Because somewhere in me, there was a voice—quiet, but firm—saying:</p>
+                        
+                        <p>"You've left before. You've healed too much to pretend none of it happened. You don't owe your disappearance to anyone's comfort."</p>
+                        
+                        <p>Coming home didn't break me. But it did reveal where I was still cracked.</p>
+                        
+                        <p>And for the first time, I wasn't afraid to name it.</p>
+                    `,
+                    resources: [
+                        {
+                            icon: "💭",
+                            title: "Reflection Prompts",
+                            content: `
+                                <p>Take 10 minutes to respond to one or both prompts:</p>
+                                
+                                <ul>
+                                    <li><strong>What does "home" mean for you?</strong><br>
+                                    Is it a place, a person, a memory—or a mask you've outgrown?</li>
+                                    
+                                    <li><strong>When you stepped back into your home, what old ways did you unconsciously adopt?</strong><br>
+                                    Did you shrink yourself in the process?</li>
+                                </ul>
+                                
+                                <h4>Additional Questions</h4>
+                                <ul>
+                                    <li>What part of your homecoming hurt more than you admitted?</li>
+                                    <li>What ghosts from your past resurfaced when you returned?</li>
+                                </ul>
+                            `
+                        },
+                        {
+                            icon: "📊",
+                            title: "Data Insights",
+                            content: `
+                                <h4>Caregiving in Context: The Cost of Coming Back</h4>
+                                
+                                <p>Returning home after a significant absence isn't just about geography. It's about re-entering the framework of old narratives—where roles were assigned before you were even given a voice in the matter.</p>
+                                
+                                <p>The intersection of family expectations and caregiving is fraught with tension. 70% of caregivers report feeling unseen or unacknowledged by family members, despite their intense emotional investment (NAC, 2023). And for Black women, these emotional and caregiving burdens are often compounded by cultural pressures to remain strong, silent, and invisible.</p>
+                                
+                                <p>Returning to this dynamic doesn't just reintroduce old patterns—it amplifies them. The role you thought you'd shed is waiting for you to step back into it, and the person you've become must decide whether to comply.</p>
+                                
+                                <h4>Re-entry Challenges</h4>
+                                <ul>
+                                    <li>78% of returning caregivers report increased stress</li>
+                                    <li>65% experience role confusion with family members</li>
+                                    <li>52% feel their personal growth is not acknowledged</li>
+                                    <li>89% report emotional triggers from childhood resurfacing</li>
+                                </ul>
+                            `
+                        },
+                        {
+                            icon: "🛠️",
+                            title: "Chapter Activities",
+                            content: `
+                                <h4>Navigating the Space Between Who You Were and Who You Are Now</h4>
+                                
+                                <p>Here's how to re-enter your family's space and still hold on to who you've become:</p>
+                                
+                                <ul>
+                                    <li><strong>Practice Emotional Grounding</strong><br>
+                                    Returning doesn't mean you have to perform the version of you that's expected. Choose one moment every day to reconnect with the person you've become.<br>
+                                    <em>Try: "I will take a breath and remember I'm not just the daughter. I am me, too."</em></li>
+                                    
+                                    <li><strong>Voice and Presence</strong><br>
+                                    Your voice matters. It's easy to fall back into old habits of silence or apology when you feel erased. Practice saying one thing that's true for you, without apology.<br>
+                                    <em>Try: "It's okay to say no." "I need space for this."</em></li>
+                                    
+                                    <li><strong>Reclaim Your Story</strong><br>
+                                    Write down a key memory from your past that was reframed by your family. This could be a moment where you were gaslit or belittled. Write your version of the story in full. You are still the author of your own life.</li>
+                                </ul>
+                                
+                                <h4>Recycled Project: "What Still Lives in This Space?"</h4>
+                                <p><strong>Project Type:</strong> Repurposed Memory Vessel</p>
+                                <p><strong>Goal:</strong> Create a symbolic vessel to collect what needs to stay and what must be let go.</p>
+                                
+                                <p><strong>Materials Needed:</strong></p>
+                                <ul>
+                                    <li>An old jar, vase, or small container</li>
+                                    <li>Paper or fabric scraps with labels like "memory," "role," or "expectation"</li>
+                                    <li>Old photos, postcards, or notes from the past</li>
+                                    <li>Scissors, glue, ribbon, or string</li>
+                                </ul>
+                                
+                                <p><strong>Instructions:</strong></p>
+                                <ol>
+                                    <li>Begin by filling your vessel with items from your past that are tied to who you used to be.</li>
+                                    <li>Write or label each item with a word that connects to your history and role in the family.</li>
+                                    <li>As the week progresses, add new pieces: those that remind you of who you are now.</li>
+                                    <li>Use the vessel as a reminder of what you're carrying and what you're leaving behind.</li>
+                                </ol>
+                                
+                                <p><em>Optional:</em> In Season 2, we'll ask you to repurpose this vessel into a visible "Care Map" of your evolving identity.</p>
+                            `
+                        }
+                    ]
+                }
+            };
+
+            // Enter the Experience - Show Chapters
+            enterBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                homepage.style.display = 'none';
+                chaptersContainer.style.display = 'block';
+            });
+            
+            // Back to Home from Chapters
+            backToHome.addEventListener('click', function(e) {
+                e.preventDefault();
+                chaptersContainer.style.display = 'none';
+                homepage.style.display = 'flex';
+            });
+            
+            // Back to Chapters from Chapter Page
+            backToChapters.addEventListener('click', function(e) {
+                e.preventDefault();
+                chapterPage.style.display = 'none';
+                chaptersContainer.style.display = 'block';
+            });
+            
+            // Open Chapter Page
+            readBtns.forEach(btn => {
+                btn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const chapterId = this.getAttribute('data-chapter');
+                    const chapter = chapters[chapterId];
+                    
+                    if (chapter) {
+                        // Set chapter title and subtitle
+                        chapterTitle.textContent = chapter.title;
+                        chapterSubtitle.textContent = chapter.subtitle;
+                        
+                        // Set narrative content
+                        narrativeContent.innerHTML = chapter.narrative;
+                        
+                        // Clear existing resources
+                        resourcesContainer.innerHTML = '';
+                        
+                        // Add resources
+                        chapter.resources.forEach(resource => {
+                            const resourceCard = document.createElement('div');
+                            resourceCard.className = 'tool-card';
+                            resourceCard.innerHTML = `
+                                <div class="tool-header">
+                                    <div class="tool-icon">${resource.icon}</div>
+                                    <h4 class="tool-title">${resource.title}</h4>
+                                </div>
+                                <div class="tool-content">
+                                    ${resource.content}
+                                </div>
+                            `;
+                            resourcesContainer.appendChild(resourceCard);
+                        });
+                        
+                        // Show chapter page
+                        chaptersContainer.style.display = 'none';
+                        chapterPage.style.display = 'block';
+                        
+                        // Scroll to top
+                        window.scrollTo(0, 0);
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
